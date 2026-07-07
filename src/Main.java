@@ -1,3 +1,5 @@
+import java.util.List;
+
 interface Payable{
     double calculatePay();
 }
@@ -12,6 +14,10 @@ abstract class Employee implements  Payable {
 
     @Override
     public abstract double calculatePay();
+
+    public String getName() {
+        return name;
+    }
 }
 
 class SalariedEmployee extends  Employee {
@@ -48,8 +54,25 @@ class HourlyEmployee extends Employee {
 public class Main {
     public static void main(String[] args){
         Employee e1 = new SalariedEmployee("Arun", 120000);
+        Employee e3 = new SalariedEmployee("Aman", 100000);
+        Employee e4 = new SalariedEmployee("Suman", 60000);
         Employee e2 = new HourlyEmployee("Rahul", 8, 12);
-        System.out.println(e1.Describe());
-        System.out.println(e2.Describe());
+        Employee e5 = new HourlyEmployee("Sumit", 5, 24);
+        Employee e6 = new HourlyEmployee("Ronit", 930, 3500);
+
+        List<Employee> emp = List.of(e1, e2, e3, e4, e5,e6);
+
+        //get all employee over 50000 salary...
+        List<String> earning_over_50000 = emp.stream()
+                .filter(n-> n.calculatePay() > 50000)
+                .map(Employee::getName)
+                .toList();
+
+        //computing total payroll...
+        double totalPayroll = emp.stream()
+                        .mapToDouble(Employee::calculatePay).sum();
+
+        System.out.println(earning_over_50000);
+        System.out.println(totalPayroll);
     }
 }
