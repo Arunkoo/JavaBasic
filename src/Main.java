@@ -1,5 +1,6 @@
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 
 interface Payable{
     double calculatePay();
@@ -78,6 +79,15 @@ public class Main {
                 .sorted(Comparator.comparingDouble(Employee::calculatePay).reversed())
                 .map(Employee::getName)
                 .toList();
+
+        //task2: Return Top performer employee not just name but whole object
+        //catch is if  list is empty we should handle it using <optional> ?
+        Optional<Employee> topEarner = emp.stream()
+                .max(Comparator.comparingDouble(Employee::calculatePay));
+
+        topEarner.ifPresent(employee ->
+                System.out.println("Top earner is " + employee.getName() + " who earns "+ employee.calculatePay())
+        );
 
         System.out.println("earning over 50,000 "+ earning_over_50000);
         System.out.println("total payroll " + totalPayroll);
