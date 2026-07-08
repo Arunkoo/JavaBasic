@@ -1,3 +1,4 @@
+import java.util.Comparator;
 import java.util.List;
 
 interface Payable{
@@ -72,7 +73,14 @@ public class Main {
         double totalPayroll = emp.stream()
                         .mapToDouble(Employee::calculatePay).sum();
 
-        System.out.println(earning_over_50000);
-        System.out.println(totalPayroll);
+        //task1: Sort by pay descending order...
+        List<String> sortedByDescOrder = emp.stream()
+                .sorted(Comparator.comparingDouble(Employee::calculatePay).reversed())
+                .map(Employee::getName)
+                .toList();
+
+        System.out.println("earning over 50,000 "+ earning_over_50000);
+        System.out.println("total payroll " + totalPayroll);
+        System.out.println("payment sorted by descending order " + sortedByDescOrder);
     }
 }
