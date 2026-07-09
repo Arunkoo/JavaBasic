@@ -85,6 +85,12 @@ public class Main {
         Optional<Employee> topEarner = emp.stream()
                 .max(Comparator.comparingDouble(Employee::calculatePay));
 
+        //task3: Count Employee By Type
+
+        long hourlyCount = emp.stream().filter(e-> e instanceof HourlyEmployee).count();
+        long SalariedCount = emp.stream().filter(e-> e instanceof SalariedEmployee).count();
+
+
         topEarner.ifPresent(employee ->
                 System.out.println("Top earner is " + employee.getName() + " who earns "+ employee.calculatePay())
         );
@@ -92,5 +98,6 @@ public class Main {
         System.out.println("earning over 50,000 "+ earning_over_50000);
         System.out.println("total payroll " + totalPayroll);
         System.out.println("payment sorted by descending order " + sortedByDescOrder);
+        System.out.println("HourlyCount: " + hourlyCount + " " + "SalariedCount: " + SalariedCount);
     }
 }
