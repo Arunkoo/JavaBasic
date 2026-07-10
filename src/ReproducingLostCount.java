@@ -1,9 +1,10 @@
 class Counter{
     private int count = 0;
-    public void increment(){     //not a thread safe..
+    public synchronized void increment(){    //acquire an intrinsic lock making it process one thread at a time..
         count++;
-    };
-    public int get(){
+    }
+
+    public synchronized int get(){
         return count;
     }
 }
