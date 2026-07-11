@@ -1,11 +1,28 @@
+import java.util.concurrent.locks.ReentrantLock;
+
 class Counter{
     private int count = 0;
-    public synchronized void increment(){    //acquire an intrinsic lock making it process one thread at a time..
-        count++;
+    //using extrinsic lock.. to get control over lock...
+    ReentrantLock lock = new ReentrantLock();
+
+    public  void increment(){
+        lock.lock();
+        try{
+            count++;
+        }finally {
+            //release only when we successfully resolved the value..
+            lock.unlock();
+        }
+
     }
 
-    public synchronized int get(){
-        return count;
+    public  int get(){
+        lock.lock();
+        try{
+            return count;
+        }finally {
+            lock.unlock();
+        }
     }
 }
 
